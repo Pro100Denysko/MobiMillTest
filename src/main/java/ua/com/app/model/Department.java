@@ -1,10 +1,12 @@
 package ua.com.app.model;
 
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -20,6 +22,9 @@ public class Department {
   @Column(name = "NAME")
   private String name;
 
+  @ManyToMany(mappedBy = "departments")
+  private Set<Company> companies;
+
   public Long getId() {
     return id;
   }
@@ -34,5 +39,13 @@ public class Department {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public Set<Company> getCompanies() {
+    return companies;
+  }
+
+  public void setCompanies(Set<Company> companies) {
+    this.companies = companies;
   }
 }
