@@ -8,7 +8,9 @@ DROP TABLE IF EXISTS user_departments;
 -- Table: company
 CREATE TABLE company (
   id   INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(45) NOT NULL
+  name VARCHAR(45) NOT NULL,
+
+  UNIQUE (name)
 );
 
 -- Table: department
