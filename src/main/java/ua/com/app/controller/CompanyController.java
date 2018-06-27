@@ -8,21 +8,43 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ua.com.app.model.Company;
-import ua.com.app.model.Department;
-import ua.com.app.model.User;
-import ua.com.app.service.CompanyServiceImpl;
+import ua.com.app.service.CompanyService;
 
 @RestController
 @RequestMapping("/api")
 public class CompanyController {
 
-  private CompanyServiceImpl companyService;
+  private CompanyService companyService;
 
   @Autowired
-  public CompanyController(CompanyServiceImpl companyService) {
+  public CompanyController(CompanyService companyService) {
     this.companyService = companyService;
+  }
+
+  @RequestMapping(value = "/company/{id}", params = "name", method = RequestMethod.PUT)
+  public ResponseEntity<Company> updateName(@PathVariable("id") Long id,
+      @RequestParam String name) {
+    Company companyToUpdate = companyService.getById(id);
+    if (companyToUpdate == null) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    } else {
+      return new ResponseEntity<>(companyService.updateName(companyToUpdate, name), HttpStatus.OK);
+    }
+  }
+
+
+  @RequestMapping(value = "/company/{id}", method = RequestMethod.DELETE)
+  public ResponseEntity<Company> deleteCompanyById(@PathVariable("id") Long id) {
+    Company companyToDelete = companyService.getById(id);
+    if (companyToDelete == null) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    } else {
+      companyService.delete(companyToDelete);
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
   }
 
   @RequestMapping(value = "/company", method = RequestMethod.POST)
@@ -37,38 +59,11 @@ public class CompanyController {
 
   @RequestMapping(value = "/company/{id}", method = RequestMethod.GET)
   public ResponseEntity<Company> getCompanyById(@PathVariable("id") Long id) {
-    Company company = companyService.getById(id);
-
-    //This fields are null because the company data enters the loop
-    for (Department department : company.getDepartments()) {
-      department.setCompanies(null);
-    }
-    for (User user : company.getUsers()) {
-      user.getPosition().setUser(null);
-      user.setCompany(null);
-      for (Department department : user.getDepartments()) {
-        department.setCompanies(null);
-      }
-    }
-    return new ResponseEntity<>(company, HttpStatus.OK);
+    return new ResponseEntity<>(companyService.getById(id), HttpStatus.OK);
   }
 
   @RequestMapping(value = "/companies", method = RequestMethod.GET)
   public ResponseEntity<List<Company>> getAllCompanies() {
-    List<Company> listOfCompanies = companyService.getAllCompanies();
-    for (Company company : listOfCompanies) {
-      //This fields are null because the company data enters the loop
-      for (Department department : company.getDepartments()) {
-        department.setCompanies(null);
-      }
-      for (User user : company.getUsers()) {
-        user.setCompany(null);
-        user.getPosition().setUser(null);
-        for (Department department : user.getDepartments()) {
-          department.setCompanies(null);
-        }
-      }
-    }
-    return ResponseEntity.status(HttpStatus.OK).body(listOfCompanies);
+    return ResponseEntity.status(HttpStatus.OK).body(companyService.getAll());
   }
 }
