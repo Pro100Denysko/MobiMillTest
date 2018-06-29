@@ -1,6 +1,8 @@
 package ua.com.app.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.app.DAO.CompanyRepository;
@@ -29,6 +31,19 @@ public class CompanyService {
   public Company updateName(Company companyToUpdate, String newName) {
     companyToUpdate.setName(newName);
     return companyRepository.save(companyToUpdate);
+  }
+
+  public Company addDepartment(Company companyToUpdate, Department department) {
+    Set<Department> departments = new HashSet<>();
+    departments.add(department);
+    companyToUpdate.setDepartments(departments);
+    return companyRepository.save(companyToUpdate);
+  }
+
+  public Company deleteDepartmentFromCompany(Company company, Department department) {
+    Company company1 = companyRepository.findById(company.getId()).orElseThrow(() ->
+        new RuntimeException("Requested entity was not found"));
+    return null;
   }
 
   public List<Company> getAll() {

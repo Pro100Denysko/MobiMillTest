@@ -1,6 +1,5 @@
 package ua.com.app.service;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.app.DAO.DepartmentRepository;
@@ -16,7 +15,8 @@ public class DepartmentService {
     this.departmentRepository = departmentRepository;
   }
 
-  public List<Department> getAllDepartments() {
-    return departmentRepository.findAll();
+  public Department getById(Long id) {
+    return departmentRepository.getById(id).orElseThrow(() ->
+        new RuntimeException("Requested entity was not found"));
   }
 }
