@@ -52,7 +52,8 @@ public class UserController {
     if (userToUpdate == null) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     } else {
-      return new ResponseEntity<>(userService.updateName(userToUpdate, name), HttpStatus.OK);
+      userService.updateName(userToUpdate, name);
+      return ResponseEntity.status(HttpStatus.OK).build();
     }
   }
 }
