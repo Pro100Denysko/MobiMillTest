@@ -1,5 +1,6 @@
 package ua.com.app.model;
 
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,5 +48,24 @@ public class Department {
 
   public void setCompanies(Set<Company> companies) {
     this.companies = companies;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Department that = (Department) o;
+    return Objects.equals(id, that.id) &&
+        Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+
+    return Objects.hash(id, name);
   }
 }
