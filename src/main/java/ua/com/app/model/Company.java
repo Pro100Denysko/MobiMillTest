@@ -1,5 +1,6 @@
 package ua.com.app.model;
 
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +29,7 @@ public class Company {
   private String name;
 
   @ManyToMany
-  @JoinTable(name = "company_departments", joinColumns = @JoinColumn(name = "company_id"),
+  @JoinTable(name = "company_departments", joinColumns = @JoinColumn(name = "company1_id"),
       inverseJoinColumns = @JoinColumn(name = "department_id"))
   @NotNull
   private Set<Department> departments;
@@ -66,5 +67,26 @@ public class Company {
 
   public void setUsers(Set<User> users) {
     this.users = users;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Company company = (Company) o;
+    return Objects.equals(id, company.id) &&
+        Objects.equals(name, company.name) &&
+        Objects.equals(departments, company.departments) &&
+        Objects.equals(users, company.users);
+  }
+
+  @Override
+  public int hashCode() {
+
+    return Objects.hash(id, name, departments, users);
   }
 }
