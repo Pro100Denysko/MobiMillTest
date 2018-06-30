@@ -3,6 +3,7 @@ package ua.com.app.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.app.DAO.UserRepository;
+import ua.com.app.model.Department;
 import ua.com.app.model.User;
 
 @Service
@@ -28,9 +29,15 @@ public class UserService {
         new RuntimeException("Requested entity was not found"));
   }
 
-  public User updateName(User userToUpdate, String newName) {
+  public void updateName(User userToUpdate, String newName) {
     userToUpdate.setName(newName);
-    return userRepository.save(userToUpdate);
+    userRepository.save(userToUpdate);
+  }
+
+  public void bindUserToDepartment(Department department, User user) {
+    User newUser = userRepository.findById(user.getId()).orElseThrow(() ->
+        new RuntimeException("Requested entity was not found"));
+    newUser.getDepartments().add(department);
   }
 
 }
