@@ -1,8 +1,7 @@
 # MobiMill Test
 
----
-
 Simply rest-app, using Java 8, Spring Boot, Spring Data.
+
 Database diagram:
 
 company:
@@ -75,11 +74,12 @@ users:
 ## CompanyController
 
 
-Get all companies
+Get all companies:
 ##### Request Method - GET
 `http://localhost:8080/api/companies`
 
-Add company
+
+Add company:
 ##### Request Method - POST
 `http://localhost:8080/api/company`
 
@@ -102,26 +102,28 @@ Body:
 }
 ```
 
-Delete company
+
+Delete company:
 ##### Request Method - DELETE
 `http://localhost:8080/api/company/{id}`
 
-Update name
+
+Update name:
 ##### Request Method - PUT
 `http://localhost:8080/api/company/{id}?name=newCompanyName`
 
 ## UserController
 
 
-Add user
+Add user:
 ##### Request Method - POST
 `http://localhost:8080/api/users`
 
 Body:
 ```json
 {
-	"name": "Andrey",
-    "lastname": "Molchanov",
+    "name": "name",
+    "lastname": "lastname",
     "dateOfBirth": 345852000000,
     "position": {
         "id": 3,
@@ -135,11 +137,13 @@ Body:
 }
 ```
 
-Delete user
+
+Delete user:
 ##### Request Method - DELETE
 `http://localhost:8080/api/users/{id}`
 
-Update name
+
+Update name:
 ##### Request Method - PUT
 `http://localhost:8080/api/users/{id}?name=newName`
 
@@ -147,14 +151,17 @@ Update name
 
 **All methods are deprecated**
 
-Add department to company
+
+Add department to company:
 ##### Request Method - POST
 `http://localhost:8080/api/company/{id}/departments/{depId}`
 
-Delete department from company
+
+Delete department from company:
 ##### Request Method - POST
 `http://localhost:8080/api/delete/company/{id}/departments/{depId}`
 
-Add new user to department
+
+Add new user to department:
 ##### Request Method - POST
 `http://localhost:8080/api/users/{id}/departments/{depId}`
