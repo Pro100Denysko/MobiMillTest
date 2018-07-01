@@ -22,7 +22,7 @@ INSERT INTO POSITION VALUES (10, 'Junior Financier');
 INSERT INTO POSITION VALUES (11, 'Middle Financier');
 INSERT INTO POSITION VALUES (12, 'Senior Financier');
 
-INSERT INTO USERS VALUES (1, 'Max', 'kolpachev', '1990-05-23', 2, 1);
+INSERT INTO USERS VALUES (1, 'Max', 'Kolpachev', '1990-05-23', 2, 1);
 INSERT INTO USERS VALUES (2, 'Andrey', 'Molchanov', '1980-12-17', 3, 1);
 INSERT INTO USERS VALUES (3, 'Sasha', 'Borisov', '1985-8-02', 6, 2);
 INSERT INTO USERS VALUES (4, 'Daria', 'Alexeevna', '1995-11-15', 8, 3);
