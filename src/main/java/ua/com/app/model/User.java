@@ -40,7 +40,7 @@ public class User {
   private Position position;
 
   @OneToOne
-  @JoinColumn(name = "company2_id")
+  @JoinColumn(name = "company_id")
   private Company company;
 
   @OneToMany

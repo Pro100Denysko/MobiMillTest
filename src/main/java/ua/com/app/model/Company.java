@@ -29,7 +29,7 @@ public class Company {
   private String name;
 
   @ManyToMany
-  @JoinTable(name = "company_departments", joinColumns = @JoinColumn(name = "company1_id"),
+  @JoinTable(name = "company_departments", joinColumns = @JoinColumn(name = "company_id"),
       inverseJoinColumns = @JoinColumn(name = "department_id"))
   @NotNull
   private Set<Department> departments;
