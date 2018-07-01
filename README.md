@@ -130,8 +130,7 @@ Body:
         "name": "Senior SE",
         "user": null
     },
-    "company":
-    	{
+    "company": {
     	"id":1
     	}
 }
